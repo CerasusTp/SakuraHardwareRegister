@@ -6,16 +6,49 @@
       xmlns:local="clr-namespace:SakuraHardwareRegister.Views.Pages.Base"
       Style="{DynamicResource MahApps.Styles.Page}"
       mc:Ignorable="d" 
-      d:Height="400" d:Width="600"
+      MaxHeight="400" MaxWidth="600"
+      d:DesignHeight="400" d:DesignWidth="600"
       Title="Login">
+    
+    <!-- 共通デザイン読込 -->
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="\Resources\CommonResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
-        <Label Content="さくらハードウェア台帳システム" FontSize="30" HorizontalAlignment="Center" Margin="0, 80" VerticalAlignment="Top"/>
-        <Label Content="ユーザーID" FontSize="20" HorizontalAlignment="Center" Margin="-300,160,0,0" VerticalAlignment="Top"/>
-        <Label Content="パスワード" FontSize="20" HorizontalAlignment="Center" Margin="-300,220,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="txtId" FontSize="20" HorizontalAlignment="Center" Margin="120,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" Height="40"/>
-        <PasswordBox Name="txtPw" PasswordChar="*" FontSize="20" HorizontalAlignment="Center" Margin="120,220,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="250" Height="40"/>
-        <Button Name="btnLogin" Click="ExecuteLogin" Content="ログイン" FontSize="20" HorizontalAlignment="Center" Margin="0,300,0,0" VerticalAlignment="Top" Width="200" Height="40"/>
+        <!-- 列定義 -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- 行定義 -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- 画面表示 -->
+        <Label Content="さくらハードウェア台帳システム" FontSize="30" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" />
+        <Label Content="ユーザーID" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" />
+        <Label Content="パスワード" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" />
+        <TextBox Name="txtId" Grid.Column="2" Grid.Row="3" />
+        <PasswordBox Name="txtPw" PasswordChar="*" Grid.Column="2" Grid.Row="5" />
+        <Button Name="btnLogin" Click="ExecuteLogin" Content="ログイン" FontSize="24" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" />
 
     </Grid>
 </local:BasePage>

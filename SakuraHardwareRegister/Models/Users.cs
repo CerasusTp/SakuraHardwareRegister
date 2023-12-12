@@ -15,6 +15,7 @@ namespace SakuraHardwareRegister.Models
         public required string User_Name { get; set; }
         public required string Password { get; set; }
         public bool Active_Flag { get; set; }
+        public int Default_Location { get; set; }
 
         // 引数なしのコンストラクタがないとDapperがエラーになる
         public Users() { }
