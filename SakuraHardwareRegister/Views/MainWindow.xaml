@@ -32,7 +32,7 @@
     <!--タイトルバー-->
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
-            <Button Content="ログアウト" Click="ExecuteLogout"/>
+            <Button Content="ログアウト" Click="Click_TitleBtnLogout"/>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <!--サイドバーメニュー-->

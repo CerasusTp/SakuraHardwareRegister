@@ -1,10 +1,11 @@
 ﻿using MahApps.Metro.Controls;
-using SakuraHardwareRegister.Views.Pages.Base;
 using System.Collections.ObjectModel;
 using MahApps.Metro.IconPacks;
 using System.Windows;
 using SakuraHardwareRegister.Common;
 using SakuraHardwareRegister.Views.Pages;
+using SakuraHardwareRegister.Models;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace SakuraHardwareRegister.Views
 {
@@ -13,6 +14,9 @@ namespace SakuraHardwareRegister.Views
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        // ユーザー情報保持
+        public Users? LoginUser {  get; private set; }
+
         // サイドバーメニューの項目
         private ObservableCollection<HamburgerMenuItem> SideBarMenuItems { get; set; }
 
@@ -35,7 +39,38 @@ namespace SakuraHardwareRegister.Views
             MainFrame.Navigate(new Login());
         }
 
-        public void SetSideBarMenuVisible(bool is_visible)
+        // イベント
+        // 戻るボタンで戻れないように履歴情報削除
+        private void RemoveNavigationBackEntry(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            if (MainFrame.CanGoBack) { MainFrame.RemoveBackEntry(); }
+        }
+
+        // タイトルバーのログアウトボタン
+        private void Click_TitleBtnLogout(object sender, RoutedEventArgs e)
+        {
+            // ログイン状態判定
+            if (LoginUser is null)
+            {
+                this.ShowModalMessageExternal("ログアウト", "ログインしていません");
+                return;
+            }
+            // メッセージ表示
+            MessageDialogResult　resutl = this.ShowModalMessageExternal(
+                                            "ログアウト", "ログアウトしてもよろしいでしょうか", 
+                                            MessageDialogStyle.AffirmativeAndNegative,
+                                            new MetroDialogSettings { 
+                                                AffirmativeButtonText = "はい", 
+                                                NegativeButtonText = "いいえ", });
+            if (resutl.Equals(MessageDialogResult.Affirmative))
+            {
+                ExecuteLogout();
+            }
+        }
+
+        // 専用メソッド
+        // サイドバーメニュー切り替え
+        internal void SetSideBarMenuVisible(bool is_visible)
         {
             foreach (HamburgerMenuItem items in SideBarMenuItems) 
             {
@@ -43,17 +78,25 @@ namespace SakuraHardwareRegister.Views
             }
         }
 
-        // 戻るボタンで戻れないように履歴情報削除
-        private void RemoveNavigationBackEntry(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        // ログイン
+        internal void ExecuteLogin(Users user)
         {
-            if (MainFrame.CanGoBack) { MainFrame.RemoveBackEntry(); }
+            // ログイン情報保持
+            LoginUser = user;
+            // 画面遷移
+            MainFrame.Navigate(new TopMenu());
+            // サイドバーメニュー表示
+            SetSideBarMenuVisible(true);
         }
 
-        // タイトルバーボタン（ログアウト）
-        private void ExecuteLogout(object sender, RoutedEventArgs e)
+        // ログアウト
+        internal void ExecuteLogout()
         {
+            // ログイン情報破棄
+            LoginUser = null;
+            // サイドバーメニュー非表示
             SetSideBarMenuVisible(false);
-            // ログインページ
+            // 画面遷移（ログインページ）
             MainFrame.Navigate(new Login());
         }
     }

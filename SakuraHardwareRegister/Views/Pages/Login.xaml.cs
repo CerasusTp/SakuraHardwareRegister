@@ -30,31 +30,36 @@ namespace SakuraHardwareRegister.Views.Pages
 
         private void ExecuteLogin(object sender, RoutedEventArgs e)
         {
+            // ユーザー情報保持（ログインセッションの間のみ）
+            Users? user;
             // 入力チェック
             CheckErrorItem error = new();
             if (string.IsNullOrEmpty(txtId.Text)) { error.AddError("IDは必須です"); }
             if (string.IsNullOrEmpty(txtPw.Password)) { error.AddError("PWは必須です"); }
 
-            // ログインチェック（入力チェックでエラーの場合は処理しない）
-            if (!error.HasError())
-            {
-                var user = Users.GetUser(txtId.Text, txtPw.Password);
-                if (user is null) { error.AddError("IDまたはPWが異なります"); }
-                else if (!user.Active_Flag) { error.AddError("ユーザーが削除されています"); }
-            }
-
-            // メッセージ表示
+            // 入力チェックのメッセージ表示
             if (error.HasError())
             {
                 ParentShowMessage("エラー", error.GetError());
                 return;
             }
-            else
+
+            // ログインチェック
+            user = Users.GetUser(txtId.Text, txtPw.Password);
+            if (user is null)
             {
-                // サイドバーメニュー表示
-                ParentSetSideBarMenuVisible(true);
-                // メインページへ遷移
-                NavigationService.Navigate(new TopMenu());
+                // ユーザー情報がないとき
+                ParentShowMessage("エラー", "IDまたはPWが異なります");
+            } else if (!user.Active_Flag)
+            {
+                // ユーザーが削除されている場合のみ別のメッセージ表示
+                ParentShowMessage("エラー", "ユーザーが削除されています");
+            } else
+            {
+                // 親ウィンドウ取得
+                MainWindow parent = (MainWindow)Window.GetWindow(this);
+                // ログイン
+                parent.ExecuteLogin(user);
             }
         }
     }
