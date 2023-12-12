@@ -45,7 +45,7 @@ namespace SakuraHardwareRegister.Views.Pages
             }
 
             // ログインチェック
-            user = Users.GetUser(txtId.Text, txtPw.Password);
+            user = Users.SingleSelect(txtId.Text, txtPw.Password);
             if (user is null)
             {
                 // ユーザー情報がないとき

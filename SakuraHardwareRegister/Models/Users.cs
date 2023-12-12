@@ -21,7 +21,7 @@ namespace SakuraHardwareRegister.Models
         public Users() { }
 
         // ユーザー情報取得
-        public static Users? GetUser(string _user_id)
+        public static Users? SingleSelect(string _user_id)
         {
             using var con = DbConnector.GetDbConnector();
             con.Open();
@@ -31,7 +31,7 @@ namespace SakuraHardwareRegister.Models
         }
 
         // ユーザー情報取得（パスワード判定）
-        public static Users? GetUser(string _user_id, string _password)
+        public static Users? SingleSelect(string _user_id, string _password)
         {
             using var con = DbConnector.GetDbConnector();
             con.Open();

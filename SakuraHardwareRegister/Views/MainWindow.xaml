@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="さくらハードウェア台帳システム" Height="720" Width="1280">
+        Title="さくらハードウェア台帳システム" Height="720" Width="1280"
+        MinHeight="576" MinWidth="1024">
     <Window.Resources>
         <DataTemplate x:Key="HamburgerMenuIconItem" DataType="{x:Type mah:HamburgerMenuIconItem}">
             <DockPanel Height="48" LastChildFill="True">

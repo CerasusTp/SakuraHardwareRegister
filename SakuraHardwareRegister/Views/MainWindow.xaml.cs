@@ -83,10 +83,18 @@ namespace SakuraHardwareRegister.Views
         {
             // ログイン情報保持
             LoginUser = user;
-            // 画面遷移
-            MainFrame.Navigate(new TopMenu());
-            // サイドバーメニュー表示
-            SetSideBarMenuVisible(true);
+            // サイドバーメニューでトップページを選択済みにする
+            SideBarMenu.SelectedIndex = 0;
+            // 拠点が1つも登録されてない場合は拠点作成画面に遷移
+            if (!Locations.MultiSelect(true).Any())
+            {
+                MainFrame.Navigate(new EditLocation());
+            } else {
+                // サイドバーメニュー表示
+                SetSideBarMenuVisible(true);
+                // 通常画面に遷移
+                MainFrame.Navigate(new TopMenu());
+            }
         }
 
         // ログアウト
