@@ -1,18 +1,7 @@
-﻿using SakuraHardwareRegister.Views.Pages.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SakuraHardwareRegister.Common;
+using SakuraHardwareRegister.Models;
+using SakuraHardwareRegister.Views.Pages.Base;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SakuraHardwareRegister.Views.Pages
 {
@@ -24,6 +13,29 @@ namespace SakuraHardwareRegister.Views.Pages
         public EditLocation()
         {
             InitializeComponent();
+        }
+
+        private void CreateLocation(object sender, RoutedEventArgs e)
+        {
+            // エラーチェック
+            CheckErrorItem error = new();
+            if (string.IsNullOrEmpty(txtLocation.Text)) error.AddError("拠点名は必須です");
+
+            // エラーがある場合は終了
+            if (error.HasError())
+            {
+                ParentShowMessage("エラー", error.GetError());
+                return;
+            }
+
+            // 拠点情報保存
+            new Locations { Name = txtLocation.Text, Active_Flag = true }.Insert();
+
+            // サイドバーメニュー表示
+            ParentSetSideBarMenuVisible(true);
+
+            // 画面遷移
+            NavigationService.Navigate(new TopMenu());
         }
     }
 }

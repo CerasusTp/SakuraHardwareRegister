@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SakuraHardwareRegister.Views.Pages.Base"
+      Style="{DynamicResource MahApps.Styles.Page}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditLocation" Background="LightPink">
@@ -17,7 +18,34 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
-        
+    <Grid MaxWidth="600" MaxHeight="400">
+        <!-- 列定義 -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- 行定義 -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 画面表示 -->
+        <Label Content="拠点登録" FontSize="30" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" />
+        <Label Content="拠点名" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" />
+        <TextBox Name="txtLocation" Grid.Column="2" Grid.Row="3" />
+        <Button Name="btnLogin" Click="CreateLocation" Content="登録" FontSize="24" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" />
+
     </Grid>
 </local:BasePage>
